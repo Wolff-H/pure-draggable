@@ -1,0 +1,19 @@
+{
+    "name": "simple-draggable",
+    "version": "1.0.0",
+    "description": "$ npm install simple-draggable",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "compile": "tsc --target es2018 --declaration --outDir ./dist src/index.ts",
+        "compile:esm": "tsc --target esnext --declaration --outDir ./es src/index.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wolff-h/simple-draggable.git"
+    },
+    "keywords": [],
+    "author": "wolff-h",
+    "license": "MIT"
+}
