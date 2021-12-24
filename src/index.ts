@@ -81,7 +81,7 @@ function simpleDraggable(
     // composed params -------------------------------------------------------------------------------------------------
     const _options = Object.assign({}, default_options, options)
     
-    // take an action --------------------------------------------------------------------------------------------------
+    // do action -------------------------------------------------------------------------------------------------------
     // #1. destroy - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     if(_options.destroy)
     {
@@ -104,8 +104,8 @@ function simpleDraggable(
                 draggable: draggable,
                 mouse_start_x: 0,
                 mouse_start_y: 0,
-                draggable_start_top: 0, // parseOffset(draggable.style.top),
-                draggable_start_left: 0, // parseOffset(draggable.style.left),
+                draggable_start_top: 0,
+                draggable_start_left: 0,
                 hooks: _options.hooks,
                 avoid: _options.avoid,
                 handles: _options.handles,
@@ -126,8 +126,8 @@ function simpleDraggable(
                 draggable: draggable,
                 mouse_start_x: 0,
                 mouse_start_y: 0,
-                draggable_start_top: 0, // parseOffset(draggable.style.top),
-                draggable_start_left: 0, // parseOffset(draggable.style.left),
+                draggable_start_top: 0,
+                draggable_start_left: 0,
                 hooks: _options.hooks,
                 avoid: _options.avoid,
                 handles: _options.handles,
@@ -148,7 +148,7 @@ function _dragStart(this: HTMLElement, event: MouseEvent)
     const map: DraggableToDraggableDataMap = window.__SimpleDraggable.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
 
-    // 检查是否通过handles或avoid //
+    // check if passed handles or avoid //
     if(
         (draggable_data.handles.length > 0 && !draggable_data.handles.includes(event.target as HTMLElement)) ||
         (draggable_data.avoid.length > 0 && draggable_data.avoid.includes(event.target as HTMLElement))
@@ -156,22 +156,17 @@ function _dragStart(this: HTMLElement, event: MouseEvent)
         return
     }
     
-    // 调用自定义hook //
+    // custom hook //
     if(draggable_data.hooks?.dragStart && draggable_data.hooks?.dragStart(event, draggable, draggable_data) === false) return
 
-    
-    
-    // 默认动作： //
-    // 设置draggable的初始状态 //
     draggable_data.draggable_start_top = parseOffset(draggable.style.top)
     draggable_data.draggable_start_left = parseOffset(draggable.style.left)
 
     draggable_data.mouse_start_x = event.clientX
     draggable_data.mouse_start_y = event.clientY
     
-    window.__SimpleDraggable.active_draggable = draggable    // !!! 这个可能需要放到自定义hook前面去
+    window.__SimpleDraggable.active_draggable = draggable
     
-    // 设置后续动作监听器 //
     document.addEventListener('mousemove', _drag)
     document.addEventListener('mouseup', _dragEnd)
 }
@@ -182,10 +177,10 @@ function _drag(event: MouseEvent)
     const map: DraggableToDraggableDataMap = window.__SimpleDraggable.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
 
-    // 调用自定义hook //
+    // custom hook //
     if(draggable_data.hooks?.drag && draggable_data.hooks?.drag(event, draggable, draggable_data) === false) return
 
-    // 默认动作：移动拖拽物 //
+    // default action: move draggable //
     draggable.style.top = draggable_data.draggable_start_top + (event.clientY - draggable_data.mouse_start_y) + 'px'
     draggable.style.left = draggable_data.draggable_start_left + (event.clientX - draggable_data.mouse_start_x) + 'px'
 }
@@ -196,11 +191,11 @@ function _dragEnd(event: MouseEvent)
     const map: DraggableToDraggableDataMap = window.__SimpleDraggable.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
 
-    // 默认动作：移除动作监听器 //
+    // default: remove mouse event listeners //
     document.removeEventListener('mousemove', _drag)
     document.removeEventListener('mouseup', _dragEnd)
 
-    // 在最后，调用自定义hook //
+    // custom hook //
     if(draggable_data.hooks.dragEnd)
     {
         draggable_data.hooks.dragEnd(event, draggable, draggable_data)
