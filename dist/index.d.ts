@@ -32,7 +32,7 @@ interface DraggableData {
  * @param draggable Draggable. The draggable element.
  * @param options Options.
  */
-declare function simpleDraggable(draggable: HTMLElement, options?: {
+declare function pureDraggable(draggable: HTMLElement, options?: {
     hooks?: {
         dragStart?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void | false;
         drag?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void | false;
@@ -44,4 +44,4 @@ declare function simpleDraggable(draggable: HTMLElement, options?: {
     data?: any;
 }): DraggableData;
 export { Options, SimpleDraggable, DraggableToDraggableDataMap, DraggableData, };
-export default simpleDraggable;
+export default pureDraggable;

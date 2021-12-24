@@ -1,16 +1,16 @@
-# simple-draggable
+# pure-draggable
 
 A javascript library that offers ability of dragging element.
 
 ## Installation
 
-`$ npm install simple-draggable`
+`$ npm install pure-draggable`
 
 ## Usage
 
 ### Basic
 ```js
-import simpleSraggable from "simple-draggable"
+import simpleSraggable from "pure-draggable"
 
 simpleSraggable(draggable)
 ```

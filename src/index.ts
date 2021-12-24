@@ -40,7 +40,7 @@ interface DraggableData
  * @param draggable Draggable. The draggable element.
  * @param options Options.
  */
-function simpleDraggable(
+function pureDraggable(
     draggable: HTMLElement,
     options:
     {
@@ -69,7 +69,7 @@ function simpleDraggable(
     {
         window.__SimpleDraggable =
         {
-            tool_name: 'simple-draggable',
+            tool_name: 'pure-draggable',
             description: 'Simple draggable.',
             draggable_to_draggable_data_map: new WeakMap(),
             active_draggable: null,
@@ -212,4 +212,4 @@ export
     DraggableData,
 }
 
-export default simpleDraggable
+export default pureDraggable

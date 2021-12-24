@@ -4,7 +4,7 @@
  * @param draggable Draggable. The draggable element.
  * @param options Options.
  */
-function simpleDraggable(draggable, options = {}) {
+function pureDraggable(draggable, options = {}) {
     // defaults --------------------------------------------------------------------------------------------------------
     const default_options = {
         hooks: {},
@@ -15,7 +15,7 @@ function simpleDraggable(draggable, options = {}) {
     if (!window.__SimpleDraggable) {
         window.__SimpleDraggable =
             {
-                tool_name: 'simple-draggable',
+                tool_name: 'pure-draggable',
                 description: 'Simple draggable.',
                 draggable_to_draggable_data_map: new WeakMap(),
                 active_draggable: null,
@@ -110,4 +110,4 @@ function _dragEnd(event) {
         draggable_data.hooks.dragEnd(event, draggable, draggable_data);
     }
 }
-export default simpleDraggable;
+export default pureDraggable;
