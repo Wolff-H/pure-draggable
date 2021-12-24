@@ -35,10 +35,10 @@ interface DraggableData
 }
 
 /**
- * ！！！TODO：可以考虑让simpleDraggable返回刚刚创建的draggable的draggable_data的引用，这样用户可以在外层设置data_transfer
- * @param draggable 拖拽物。
- * @param hooks 拖拽行为的生命周期钩子。在钩子中返回false将会阻止该行为的默认动作。
- * @param options 其他配置。传destroy为true则删除元素上的拖拽监听。
+ * Offers ability of dragging elements.
+ * @todo 选项avoid改成avoids
+ * @param draggable Draggable. The draggable element.
+ * @param options Options.
  */
 function simpleDraggable(
     draggable: HTMLElement,
@@ -51,11 +51,8 @@ function simpleDraggable(
             dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void,
         },
         destroy?: boolean,
-        /** 拖拽行为将不会在这些元素上发生 */
         avoid?: HTMLElement[],
-        /** 拖拽行为将仅会在这个元素上发生（当同时定义了avoid和handle，仅handle会生效） */
         handles?: HTMLElement[],
-        /** data carried on data_transfer, the passed data will replace the entire data_transfer */
         data?: any,
     } = {},
 ){

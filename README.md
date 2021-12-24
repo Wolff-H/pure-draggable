@@ -1,85 +1,77 @@
-# handled-resizable
+# simple-draggable
 
-A javascript library that offers ability of resizing element by dragging a handle.
+A javascript library that offers ability of dragging element.
 
 ## Installation
 
-`$ npm install handled-resizable`
+`$ npm install simple-draggable`
 
 ## Usage
 
-Notice: This library is designed to be as elementary as possible. Thus, to use this library you must provide a "handle" (the resizer) element by yourself.
-
 ### Basic
 ```js
-import handledResizable from "handled-resizable"
+import simpleSraggable from "simple-draggable"
 
-handledResizable(resizer, resizee)
+simpleSraggable(draggable)
 ```
 
 ## API
 
 ```ts
-function handledResizable(
-    resizer: HTMLElement,
-    resizee: HTMLElement|null,
+function simpleSraggable(
+    draggable: HTMLElement,
     options?:
     {
-        movement?:
-        {
-            x?: -1|0|1,
-            y?: -1|0|1,
-        },
         hooks?:
         {
-            resizeStart?: (event: MouseEvent, resizer: HTMLElement, resizer_data: ResizerData) => void|false,
-            resize?: (event: MouseEvent, resizer: HTMLElement, resizer_data: ResizerData) => void|false,
-            resizeEnd?: (event: MouseEvent, resizer: HTMLElement, resizer_data: ResizerData) => void,
-        }
+            dragStart?: (event: MouseEvent, draggable: HTMLElement, draggable_data: ResizerData) => void|false,
+            drag?: (event: MouseEvent, draggable: HTMLElement, draggable_data: ResizerData) => void|false,
+            dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: ResizerData) => void,
+        },
+        destroy?: boolean,
+        avoid?: HTMLElement[],
+        handles?: HTMLElement[],
+        data?: any,
     },
-): void
+): DraggableData|void
 ```
 
-- `resizer`
+- `draggable`
 
-    The resizer element. Drag the resizer to resize resizee.
-
-- `resizee`
-
-    The resizee element. When drag on resizer, resizee resizes correspondingly.
-    When null, clear all resizable relations on passed resizer.
+    The draggable element.
 
 - `options`
 
     Other options.
 
-    - `movement`
-    
-        Movement constraint.
-    
-        - `x`, `y`
-
-            Defines in what direction the resizee resizes.
-
-            > -1: Negative direction.
-            
-            > 0: No move.
-
-            > 1: Positive direction.
-
     - `hooks`
 
         Custom hooks.
 
-        - `resizeStart`
+        - `dragStart`
 
-            Call when resize starts. Return `false` to prevent default behaviour.
+            Call when drag starts. Return `false` to prevent default behaviour.
 
-        - `resize`
+        - `drag`
 
-            Call on each resize move. Return `false` to prevent default behaviour.
+            Call on each drag move. Return `false` to prevent default behaviour.
 
-        - `resizeEnd`
+        - `dragEnd`
 
-            Call when resize ends.
+            Call when drag ends.
 
+    - `destroy`
+    
+        When true, remove draggable ability on the element.
+
+    - `avoid`
+
+        Drag will not happen on those elements.
+    
+    - `handles`
+    
+        Drag will only happen on those elements. When both avoid and handles are defined, only handles take effect.
+    
+    - `data`
+
+        Data that is to be carried on data_transfer.
